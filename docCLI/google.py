@@ -20,6 +20,8 @@ def get_client_secret():
     except NoClientSecretException:
         print('Unable to find client secret. Exiting...')
         sys.exit(1)
+    else:
+        return secret_file
 
 
 APPLICATION_NAME = 'docCLI'
@@ -33,7 +35,7 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     '''
-    CLIENT_SECRET_FILE = get_client_secret()
+    CLIENT_SECRET_FILE: Path = get_client_secret()
     home_dir = Path.home()
     credential_dir = home_dir / '.credentials'
     if not credential_dir.exists():
