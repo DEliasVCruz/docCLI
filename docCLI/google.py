@@ -7,17 +7,14 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
-class NoClientSecretException(Exception):
-    pass
-
 SCOPES = 'https://www.googleapis.com/auth/drive'
 
 def get_client_secret():
     try:
         secret_file = Path.cwd() / 'credentials/client_secret.json'
         if not secret_file.is_file():
-            raise NoClientSecretException()
-    except NoClientSecretException:
+            raise FileNotFoundError()
+    except FileNotFoundError:
         print('Unable to find client secret. Exiting...')
         sys.exit(1)
     else:
