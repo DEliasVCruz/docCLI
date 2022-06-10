@@ -10,15 +10,10 @@ from oauth2client.file import Storage
 SCOPES = 'https://www.googleapis.com/auth/drive'
 
 def get_client_secret():
-    try:
-        secret_file = Path.cwd() / 'credentials/client_secret.json'
-        if not secret_file.is_file():
-            raise FileNotFoundError()
-    except FileNotFoundError:
-        print('Unable to find client secret. Exiting...')
-        sys.exit(1)
-    else:
-        return secret_file
+    secret_file = Path.cwd() / 'credentials/client_secret.json'
+    if not secret_file.is_file():
+        raise FileNotFoundError('Unable to find client secret. Exiting...')
+    return secret_file
 
 
 APPLICATION_NAME = 'docCLI'
