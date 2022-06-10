@@ -1,5 +1,5 @@
-import os
 import sys
+from pathlib import Path
 import httplib2
 
 from googleapiclient.discovery import build
@@ -14,10 +14,8 @@ SCOPES = 'https://www.googleapis.com/auth/drive'
 
 def get_client_secret():
     try:
-        mod = '/'.join(os.path.abspath(__file__).split('/')[0:-1])
-        CLIENT_SECRET_FILE = os.path.join(mod,
-                                          'credentials/client_secret.json')
-        if not os.path.isfile(CLIENT_SECRET_FILE):
+        secret_file = Path.cwd() / 'credentials/client_secret.json'
+        if not secret_file.is_file():
             raise NoClientSecretException()
     except NoClientSecretException:
         print('Unable to find client secret. Exiting...')
@@ -36,12 +34,11 @@ def get_credentials():
         Credentials, the obtained credential.
     '''
     CLIENT_SECRET_FILE = get_client_secret()
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'drive-googleapis.json')
+    home_dir = Path.home()
+    credential_dir = home_dir / '.credentials'
+    if not credential_dir.exists():
+        credential_dir.mkdir()
+    credential_path = credential_dir / 'drive-googleapis.json'
 
     store = Storage(credential_path)
     credentials = store.get()
