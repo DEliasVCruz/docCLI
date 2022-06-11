@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "docCLI"
+version = "0.0.4"
+description = "A command line interface for Google Docs suite"
+authors = [
+    "Alex Soderman <asoderman.as@gmail.com>",
+    "Daniel Vilela <danielvilelayo@gmail.com>""
+    ]
+license = "MIT"
+repository = "https://github.com/asoderman/docCLI"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.3"
+google-api-python-client = "^2.50.0"
+httplib2 = "^0.20.4"
+oauth2client = "^4.1.3"
+pyasn1 = "^0.4.8"
+
+[tool.poetry.dev-dependencies]
+rsa = "^4.8"
+pyasn1-modules = "^0.2.8"
+six = "^1.16.0"
+uritemplate = "^4.1.1"
+
+[tool.poetry.scripts]
+docs = "docCLI.docs:open_docs"
+drive = "docCLI.drive:open_drive"
+sheets = "docCLI.sheets:open_sheets"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
